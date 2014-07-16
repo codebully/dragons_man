@@ -1,6 +1,6 @@
 load 'rules.rb'
 load 'insults.rb'
-load 'player.rb'
+#load 'player.rb'
 
 def prompt()
   print "> "
