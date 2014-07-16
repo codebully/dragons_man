@@ -1,11 +1,15 @@
 load 'rules.rb'
 load 'insults.rb'
 
+def prompt()
+  print "> "
+end
+
 def treasure
   puts 'Nice one! You fell into a hole and found a ton of treasure'
   puts 'You wanna stuff your pocket or build way out of the hole?'
   puts 'I\'m just saying, this is REALLY nice treasure and you should just take it all.'
-  treasure_taken = gets.chomp()
+  prompt; treasure_taken = gets.chomp()
 
   if treasure_taken.include?('take')
     puts 'Good boy.'
@@ -26,34 +30,41 @@ end
 def fight
   puts 'You enter a room with a dragon, an irate looking midget and a door.'
   puts 'Which one would you rather kick?'
-  first_fight = gets.chomp()
+  prompt; first_fight = gets.chomp()
   first_fight = first_fight.downcase
 
-  if first_fight == 'dragon'
-    sleep 2
-    puts "Well, you\'re an absolute #{$insults.sample}. It is a DRAGON you #{insults.sample}. A REAL DRAGON."
-    puts 'He basically just eats and breathes fire. That\'s his ONLY function.'
-    sleep 2
-    puts ''
-    puts 'So, obviously, he ate you and burped up some fire. You die. Bye.'
-    death
-  elsif first_fight == 'midget'
-    sleep 2
-    puts 'Urgh, were you ever like told, not to kick angry looking fellas?'
-    puts "Guess what, #{$insults.sample}, he kicked back. Hard. You are dead. Bye."
-    death
-  elsif first_fight == 'door'
-    puts 'We got a live one here!'
-    puts 'Way to go, smarty pants. You are now back at the intersection.'
-    first_step
-  else puts 'I did not understand that. Please try again.'
-    fight
+  if $player_class == "God"
+    puts "#{$player_name} you are a god among men. You win."
+    puts "It would be unfair to the dragon and midget, not to mention the door, if you were to fight them. "
+
+  else
+
+    if first_fight == 'dragon'
+      sleep 2
+      puts "Well, you\'re an absolute #{$insults.sample}. It is a DRAGON you #{insults.sample}. A REAL DRAGON."
+      puts 'He basically just eats and breathes fire. That\'s his ONLY function.'
+      sleep 2
+      puts ''
+      puts 'So, obviously, he ate you and burped up some fire. You die. Bye.'
+      death
+    elsif first_fight == 'midget'
+      sleep 2
+      puts 'Urgh, were you ever like told, not to kick angry looking fellas?'
+      puts "Guess what, #{$insults.sample}, he kicked back. Hard. You are dead. Bye."
+      death
+    elsif first_fight == 'door'
+      puts 'We got a live one here!'
+      puts 'Way to go, smarty pants. You are now back at the intersection.'
+      first_step
+    else puts 'I did not understand that. Please try again.'
+      fight
+    end
   end
 end
 
 def first_step
   puts 'You can go left or right. Which one is it gonna be homie?'
-  $intersection_choice = gets.chomp()
+  prompt; $intersection_choice = gets.chomp()
   translate_arrows
 
   if $intersection_choice == 'l'
@@ -74,7 +85,7 @@ def death
   puts ''
   puts 'Womp Womp'
   puts 'Start again?'
-  restart = gets.chomp()
+  prompt; restart = gets.chomp()
   if restart.include?('y')
     start
   else
@@ -86,7 +97,7 @@ end
 def start
   system "clear"
   puts 'What is your name, wanderer?'
-  $player_name = gets.chomp()
+  prompt; $player_name = gets.chomp()
 
   if $player_name == 'Bob'
     $player_class = 'God' #add cheat mode where no harm can befall Bob.
