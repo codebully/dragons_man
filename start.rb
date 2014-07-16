@@ -1,6 +1,6 @@
 load 'rules.rb'
 load 'insults.rb'
-#load 'player.rb'
+load 'player.rb'
 
 def prompt()
   print "> "
@@ -50,19 +50,12 @@ end
 def start
   system "clear"
   puts 'What is your name, wanderer?'
-  prompt; $player_name = gets.chomp()
+  #call new player.
 
-    if $player_name == 'Bob'
-    $player_class = 'God' #add cheat mode where no harm can befall Bob.
-    $player_health = 200
-    $player_str = rand(10)
-    $player_xp = 1
-  else
-    $player_str = rand(6)
-    $player_health = 100
-  end
+  new_player
 
-  puts "Hello #{$player_name}, you awaken, no recollection of anything at all, at an intersection. Uh Oh!"
+
+  puts "Hello #{$player[:name]}, you awaken, no recollection of anything at all, at an intersection. Uh Oh!"
   puts 'What the heck am I doing here, man? -- you ask yourself.'
   puts 'Well, my troubled friend, I JUST BLOODY TOLD YOU.'
   #sleep 2
@@ -73,4 +66,5 @@ def start
 end
 
 start
+
 
