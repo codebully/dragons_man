@@ -1,5 +1,6 @@
 load 'rules.rb'
 load 'insults.rb'
+load 'player.rb'
 
 def prompt()
   print "> "
@@ -51,7 +52,7 @@ def start
   puts 'What is your name, wanderer?'
   prompt; $player_name = gets.chomp()
 
-  if $player_name == 'Bob'
+    if $player_name == 'Bob'
     $player_class = 'God' #add cheat mode where no harm can befall Bob.
     $player_health = 200
     $player_str = rand(10)
