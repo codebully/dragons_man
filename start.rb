@@ -27,41 +27,6 @@ def treasure
 
 end
 
-def fight
-  puts 'You enter a room with a dragon, an irate looking midget and a door.'
-  puts 'Which one would you rather kick?'
-  prompt; first_fight = gets.chomp()
-  first_fight = first_fight.downcase
-
-  if $player_class == "God"
-    puts "#{$player_name} you are a god among men. You win."
-    puts "It would be unfair to the dragon and midget, not to mention the door, if you were to fight them. "
-
-  else
-
-    if first_fight == 'dragon'
-      #sleep 2
-      puts "Well, you\'re an absolute #{$insults.sample}. It is a DRAGON you #{insults.sample}. A REAL DRAGON."
-      puts 'He basically just eats and breathes fire. That\'s his ONLY function.'
-      #sleep 2
-      puts ''
-      puts 'So, obviously, he ate you and burped up some fire. You die. Bye.'
-      death
-    elsif first_fight == 'midget'
-      #sleep 2
-      puts 'Urgh, were you ever like told, not to kick angry looking fellas?'
-      puts "Guess what, #{$insults.sample}, he kicked back. Hard. You are dead. Bye."
-      death
-    elsif first_fight == 'door'
-      puts 'We got a live one here!'
-      puts 'Way to go, smarty pants. You are now back at the intersection.'
-      first_step
-    else puts 'I did not understand that. Please try again.'
-      fight
-    end
-  end
-end
-
 def first_step
   puts 'You can go left or right. Which one is it gonna be homie?'
   prompt; $intersection_choice = gets.chomp()
@@ -81,19 +46,6 @@ def first_step
 
 end
 
-def death
-  puts ''
-  puts 'Womp Womp'
-  puts 'Start again?'
-  prompt; restart = gets.chomp()
-  if restart.include?('y')
-    start
-  else
-    system 'clear'
-    puts 'FORMATTING C:\\'
-  end
-end
-
 def start
   system "clear"
   puts 'What is your name, wanderer?'
@@ -101,6 +53,12 @@ def start
 
   if $player_name == 'Bob'
     $player_class = 'God' #add cheat mode where no harm can befall Bob.
+    $player_health = 200
+    $player_str = rand(10)
+    $player_xp = 1
+  else
+    $player_str = rand(6)
+    $player_health = 100
   end
 
   puts "Hello #{$player_name}, you awaken, no recollection of anything at all, at an intersection. Uh Oh!"
@@ -114,3 +72,4 @@ def start
 end
 
 start
+
