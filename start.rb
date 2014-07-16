@@ -14,13 +14,13 @@ def treasure
   if treasure_taken.include?('take')
     puts 'Good boy.'
     puts 'You are Rich! RICH! RICH!!!'
-    sleep 1
+    #sleep 1
     puts 'Also, you starved to death.'
     death
   elsif treasure_taken.include?('build')
     puts 'You live another day. But you are kinda broke.'
     puts "Anyway, you keep walking around like a #{$insults.sample} and end up..."
-    sleep 1
+    #sleep 1
     puts 'Right back at the intersection.'
     first_step
   end
@@ -40,15 +40,15 @@ def fight
   else
 
     if first_fight == 'dragon'
-      sleep 2
+      #sleep 2
       puts "Well, you\'re an absolute #{$insults.sample}. It is a DRAGON you #{insults.sample}. A REAL DRAGON."
       puts 'He basically just eats and breathes fire. That\'s his ONLY function.'
-      sleep 2
+      #sleep 2
       puts ''
       puts 'So, obviously, he ate you and burped up some fire. You die. Bye.'
       death
     elsif first_fight == 'midget'
-      sleep 2
+      #sleep 2
       puts 'Urgh, were you ever like told, not to kick angry looking fellas?'
       puts "Guess what, #{$insults.sample}, he kicked back. Hard. You are dead. Bye."
       death
@@ -106,9 +106,9 @@ def start
   puts "Hello #{$player_name}, you awaken, no recollection of anything at all, at an intersection. Uh Oh!"
   puts 'What the heck am I doing here, man? -- you ask yourself.'
   puts 'Well, my troubled friend, I JUST BLOODY TOLD YOU.'
-  sleep 2
+  #sleep 2
   puts 'YOU ARE STANDING AT AN INTERSECTION. '
-  sleep 1
+  #sleep 1
   puts '...probably not for the first time.'
   first_step
 end
