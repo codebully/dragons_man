@@ -19,12 +19,13 @@ def roll
 end
 
 def victory
+  $player[:str] += 1
   puts "You won, #{$insults.sample}!"
   puts "You gained +1XP point."
   puts "It's been allocated into your strength because we are running a podunk operation."
-  puts "It's #{$player_str} now, by the way. Your strength."
+  puts ""
+  puts "It's #{$player[:str]} now, by the way. Your strength."
   puts "Dazed, somehow you find yourself at the same intersection. AGAIN."
-  $player_str += 1
   first_step
 end
 
@@ -42,11 +43,10 @@ def death
 end
 
 def player_turn
-  #roll dice, multiply by strength
-  #monster_health - var attack
-  $player_attack = $player_str + roll.to_i
+
+  $player_attack = $player[:str] + roll + $player[:xp]
   $monster_health = $monster_health - $player_attack
-  puts "Your attack did #{$player_attack} damage. The monster now has #{$monster_health} health left!"
+  puts "Your attack did #{$player_attack} damage. The #{$monster_name} now has #{$monster_health} health left!"
 
   if $monster_health < 0 
     sleep 3
@@ -55,20 +55,19 @@ def player_turn
 end
 
 def monster_turn
-    #roll dice, multiply by strength
-    #player_health - var attack
-  $monster_attack = roll + $monster_str
-  $player_health = $player_health - $monster_attack
-  puts "The #{$monster_name} attacks! It does #{$monster_attack} damage!"
-  puts "You have #{$player_health} left."
 
-  if $player_health < 0 
+  $monster_attack = roll + $monster_str
+  $player[:health] = $player[:health] - $monster_attack
+  puts "The #{$monster_name} attacks! It does #{$monster_attack} damage!"
+  puts "You have #{$player[:health]} left."
+
+  if $player[:health] < 0 
     death
   end
 end
 
 def fight_loop
-  while $player_health > 0 && $monster_health > 0  
+  while $player[:health] > 0 && $monster_health > 0  
     player_turn
     monster_turn
     sleep 0.75
@@ -80,12 +79,6 @@ def fight
   puts 'Which one would you rather kick?'
   prompt; first_fight = gets.chomp()
   first_fight = first_fight.downcase
-
-  if $player_class == "God"
-    puts "#{$player_name} you are a god among men. You win."
-    puts "It would be unfair to the dragon and midget, not to mention the door, if you were to fight them. "
-
-  else
 
     if first_fight == 'dragon'
       $monster_health = 50
@@ -106,5 +99,5 @@ def fight
       fight
     end
   end
-end
+# end
 
