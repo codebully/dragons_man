@@ -20,12 +20,16 @@ end
 
 def victory
   $player[:str] += 1
-  puts "You won, #{$insults.sample}!"
-  puts "You gained +1XP point."
-  puts "It's been allocated into your strength because we are running a podunk operation."
-  puts ""
-  puts "It's #{$player[:str]} now, by the way. Your strength."
-  puts "Dazed, somehow you find yourself at the same intersection. AGAIN."
+  $player[:cash] = $player[:cash] + @monster[:cash]
+    puts "You won, #{$insults.sample}!"
+    puts "You gained +1XP point and #{@monster[:cash]} cash!"
+    puts ""
+    puts "It's been allocated into your strength because we are running a podunk operation."
+    puts ""
+    puts "It's #{$player[:str]} now, by the way. Your strength."
+    puts "And you have #{$player[:cash]} monies."
+    sleep 0.5
+    puts "Dazed, somehow you find yourself at the same intersection. AGAIN."
   first_step
 end
 
@@ -45,10 +49,10 @@ end
 def player_turn
 
   $player_attack = $player[:str] + roll + $player[:xp]
-  $monster_health = $monster_health - $player_attack
-  puts "Your attack did #{$player_attack} damage. The #{$monster_name} now has #{$monster_health} health left!"
+  @monster[:health] = @monster[:health] - $player_attack
+  puts "Your attack did #{$player_attack} damage. #{@monster[:name]} now has #{@monster[:health]} health left!"
 
-  if $monster_health < 0 
+  if @monster[:health] < 0 
     sleep 3
     victory
   end
@@ -56,7 +60,7 @@ end
 
 def monster_turn
 
-  $monster_attack = roll + $monster_str
+  $monster_attack = roll + @monster[:str]
   $player[:health] = $player[:health] - $monster_attack
   puts "The #{$monster_name} attacks! It does #{$monster_attack} damage!"
   puts "You have #{$player[:health]} left."
@@ -67,7 +71,8 @@ def monster_turn
 end
 
 def fight_loop
-  while $player[:health] > 0 && $monster_health > 0  
+  puts "You face the mighty #{@monster[:name]}, probably a #{@monster[:class]}"
+  while $player[:health] > 0 && @monster[:health] > 0  
     player_turn
     monster_turn
     sleep 0.75
@@ -75,29 +80,21 @@ def fight_loop
 end
 
 def fight
-  puts 'You enter a room with a dragon, an irate looking midget and a door.'
-  puts 'Which one would you rather kick?'
-  prompt; first_fight = gets.chomp()
-  first_fight = first_fight.downcase
+  puts 'You enter a room with a bunch of pissed off looking creatures. Uh-oh.'
+  puts 'Someone shouts at you, "You lookin to start somethin?!"'
+  prompt; wanna_fight = gets.chomp()
+  wanna_fight = wanna_fight.downcase
 
-    if first_fight == 'dragon'
-      $monster_health = 50
-      $monster_str = 5
-      $monster_name = 'dragon'
+    if wanna_fight == 'yes'
+      ran_monster
       fight_loop
-
-    elsif first_fight == 'midget'
-      $monster_health = 20
-      $monster_str = 2
-      $monster_name = 'midget'
-      fight_loop
-    elsif first_fight == 'door'
-      puts 'We got a live one here!'
-      puts 'Way to go, smarty pants. You are now back at the intersection.'
+      
+    elsif wanna_fight == 'no'
       first_step
-    else puts 'I did not understand that. Please try again.'
+    else
+      puts "I don't understand, #{$insults.sample}."
       fight
     end
+    
   end
-# end
 
