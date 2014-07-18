@@ -4,7 +4,8 @@ def new_player
 				:health => 100, 
 				:str => 10, 
 				:xp => 1, 
-				:cash => 0
+				:cash => 0,
+				:inventory => @inventory = []
 				}
 
 	prompt; $player[:name] = gets.chomp
@@ -38,25 +39,25 @@ def ran_monster
 		dragon = {
 			:name => @names.sample,
 			:class => 'Dragon',
-			:health => 50,
-			:str => 5,
-			:cash => 10
+			:health => 10 + rand(40),
+			:str => 1 + rand(5),
+			:cash => rand(10)
 		},
 
 		midget = {
 			:name => @names.sample,
-			:class => 'midget',
-			:health => 30,
-			:str => 3,
-			:cash => 7
+			:class => 'Angry Midget',
+			:health => 10 + rand(30),
+			:str => 1 + rand(3),
+			:cash => rand(7)
 		},
 
 		pigeon = {
 			:name => @names.sample,
 			:class => 'pigeon',
-			:health => 5,
-			:str => 1,
-			:cash => 1
+			:health => 1 + rand(6),
+			:str => 1 + rand(2),
+			:cash => rand(2)
 		},
 
 		zombie = {
@@ -64,7 +65,7 @@ def ran_monster
 			:class => 'zombie',
 			:health => 1 + rand(25),
 			:str => 1 + rand(4),
-			:cash => 5
+			:cash => rand(6)
 		}
 	]
 
