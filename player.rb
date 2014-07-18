@@ -22,29 +22,51 @@ def new_player
 	end
 end
 
-#MONSTERS:
+# method to call random monster
+# array of monsters
+# each monster in hash
+# then pop a sample out of array.
+# TODO: Add another layer when monsters are grouped by class. 
+# dragons w/ dragons, etc. this way you can pull out a dragon when you need to.
+# TODO: randomize attributes within a range. 
+# TODO: randomize names.
 
-#generally monsters should have classes
-#so a Dragon class w/ range of values. 
-#next iteration whenever.
+def ran_monster
 
-# dragon = {
-# 	:name => "Spanky",
-# 	:health => 50,
-# 	:str => 5,
-# 	:cash => 10
-# }
+	monster = [
 
-# midget = {
-# 	:name => "Barry",
-# 	:health => 30,
-# 	:str => 3,
-# 	:cash => 7
-# }
+		dragon = {
+			:name => @names.sample,
+			:class => 'Dragon',
+			:health => 50,
+			:str => 5,
+			:cash => 10
+		},
 
-# pigeon = {
-# 	:name => "Boris",
-# 	:health => 5,
-# 	:str =>1,
-# 	:cash => 1
-# }
+		midget = {
+			:name => @names.sample,
+			:class => 'midget',
+			:health => 30,
+			:str => 3,
+			:cash => 7
+		},
+
+		pigeon = {
+			:name => @names.sample,
+			:class => 'pigeon',
+			:health => 5,
+			:str => 1,
+			:cash => 1
+		},
+
+		zombie = {
+			:name => @names.sample,
+			:class => 'zombie',
+			:health => 1 + rand(25),
+			:str => 1 + rand(4),
+			:cash => 5
+		}
+	]
+
+	@monster = monster.sample
+end
