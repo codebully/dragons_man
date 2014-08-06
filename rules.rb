@@ -19,15 +19,15 @@ def roll
 end
 
 def victory
-  $player[:str] += 1
-  $player[:cash] = $player[:cash] + @monster[:cash]
+  @player.str += 1
+  @player.cash = @player.cash + @monster.cash
     puts "You won, #{$insults.sample}!"
-    puts "You gained +1XP point and #{@monster[:cash]} cash!"
+    puts "You gained +1XP point and #{@monster.cash} cash!"
     puts ""
     puts "It's been allocated into your strength because we are running a podunk operation."
     puts ""
-    puts "It's #{$player[:str]} now, by the way. Your strength."
-    puts "And you have #{$player[:cash]} monies."
+    puts "It's #{@player.str} now, by the way. Your strength."
+    puts "And you have #{@player.cash} monies."
     sleep 0.5
     puts "Dazed, somehow you find yourself at the same intersection. AGAIN."
   first_step
@@ -48,11 +48,11 @@ end
 
 def player_turn
 
-  $player_attack = $player[:str] + roll + $player[:xp]
-  @monster[:health] = @monster[:health] - $player_attack
-  puts "Your attack did #{$player_attack} damage. #{@monster[:name]} now has #{@monster[:health]} health left!"
+  $player_attack = @player.str + roll + @player.xp
+  @monster.health = @monster.health - $player_attack
+  puts "Your attack did #{$player_attack} damage. #{@monster.name} now has #{@monster.health} health left!"
 
-  if @monster[:health] < 0 
+  if @monster.health < 0 
     sleep 3
     victory
   end
@@ -60,19 +60,22 @@ end
 
 def monster_turn
 
-  $monster_attack = roll + @monster[:str]
-  $player[:health] = $player[:health] - $monster_attack
-  puts "The #{$monster_name} attacks! It does #{$monster_attack} damage!"
-  puts "You have #{$player[:health]} left."
+  $monster_attack = roll + @monster.str
+  @player.health = @player.health - $monster_attack
+  puts "The #{@monster.name} attacks! It does #{$monster_attack} damage!"
+  puts "You have #{@player.health} left."
 
-  if $player[:health] < 0 
+  if @player.health < 0 
     death
   end
 end
 
 def fight_loop
-  puts "You face the mighty #{@monster[:name]}, probably a #{@monster[:class]}"
-  while $player[:health] > 0 && @monster[:health] > 0  
+  @monster = Dragon.new
+
+  puts @monster.name
+  puts "You face the mighty #{@monster.name}."
+  while @player.health > 0 && @monster.health > 0  
     player_turn
     monster_turn
     sleep 0.75
@@ -86,7 +89,6 @@ def fight
   wanna_fight = wanna_fight.downcase
 
     if wanna_fight == 'yes'
-      ran_monster
       fight_loop
       
     elsif wanna_fight == 'no'
