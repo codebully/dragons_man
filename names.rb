@@ -1,4 +1,4 @@
-@names = [	
+$names = [	
 			'Spanky',
             'Golden Bollocks',
             'Barry from Eastenders',

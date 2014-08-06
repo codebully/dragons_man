@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def new_player
 	$player = { :player_name => "", 
 				:class => "", 
@@ -20,9 +21,21 @@ def new_player
 					}
 	else
 		$player[:player_class] = "punter"
+=======
+class Player
+	def initialize
+		puts "What's your name, #{$insults.sample}?"
+		@name = gets.chomp
+		@health = 100
+		@str = 10
+		@xp = 0
+		@cash = 0
+>>>>>>> classes
 	end
+	attr_accessor :name, :health, :str, :xp, :cash
 end
 
+<<<<<<< HEAD
 # method to call random monster
 # array of monsters
 # each monster in hash
@@ -70,4 +83,14 @@ def ran_monster
 	]
 
 	@monster = monster.sample
+=======
+class Dragon
+	def initialize 
+		@name = $names.sample
+		@health = 1 + rand(50)
+		@str = 1 + rand(5)
+		@cash = 1 + rand(10)
+	end
+	attr_accessor :name, :health, :str, :cash
+>>>>>>> classes
 end
